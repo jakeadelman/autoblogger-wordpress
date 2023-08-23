@@ -57,7 +57,6 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
                 t_res = t_res.replace('"',"'")
                 nth=find_nth(t_res, "'",3)
                 test_res = '{"blog_section": "'+t_res[nth+1:]
-                print("<--test res start")
                 period_index = test_res.rfind(".") + 1
                 res_2 = test_res[:period_index]+'"}'
             except:

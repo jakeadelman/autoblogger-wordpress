@@ -102,15 +102,19 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
 
 
 
-        if new_response.startswith(heading+": ") or new_response.startswith(heading.title()+": "):
-            heading_len = len(heading)+1
-            new_response = new_response[heading_len:]
+        # if new_response.startswith(heading+": ") or new_response.startswith(heading.title()+": "):
+        #     heading_len = len(heading)+1
+        #     new_response = new_response[heading_len:]
         
-        if new_response.startswith(heading+" ") or new_response.startswith(heading.title()+" "):
-            heading_len = len(heading)+1
+        # if new_response.startswith(heading+" ") or new_response.startswith(heading.title()+" "):
+        #     heading_len = len(heading)+1
+        #     new_response = new_response[heading_len:]
+
+        if new_response.startswith(heading+"\n\n") or new_response.startswith(heading.title()+" "):
+            heading_len = len(heading)+2
             new_response = new_response[heading_len:]
 
-        if new_response.startswith(heading+"\n") or new_response.startswith(heading.title()+" "):
+        if new_response.startswith(heading+":"+"\n\n") or new_response.startswith(heading.title()+" "):
             heading_len = len(heading)+2
             new_response = new_response[heading_len:]
 
