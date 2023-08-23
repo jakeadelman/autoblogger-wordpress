@@ -1,0 +1,6 @@
+beautifulsoup4==4.12.2
+langchain==0.0.271
+playwright==1.37.0
+python-dotenv==1.0.0
+pyunsplash==1.0.0rc2
+Requests==2.31.0
