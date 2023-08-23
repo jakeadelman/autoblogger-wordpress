@@ -32,6 +32,7 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
         {format_instructions}
 
         Final Checks:
+        Do not say 'Sure!'
         Are any of the paragraphs longer than 80 words? If so, break them up into smaller paragraphs.
         Is the entire thing under 250 words? If so, lengthen it.
         Are any of the paragraphs not separated with "\\n\n"? If so, add "\\n\n".

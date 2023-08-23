@@ -32,8 +32,8 @@ Now you should create a CSV file in csvs/ with a list of your keywords the app w
 
 There are two arguments needed to start the app.
 
-1. keyword: this is the name of your CSV file with a list of keywords you would like to create articles for. Since the CSV file given with the repo is called probiotics.csv, to run the keywords in the file you would call "--keyword "probiotics"
-2. category: this is the wordpress category that will be used for the articles. If it is not already created in wordpress the category would be created. Example: --category "Health & Household"
+1. **keyword:** this is the name of your CSV file with a list of keywords you would like to create articles for. Since the CSV file given with the repo is called probiotics.csv, to run the keywords in the file you would call "--keyword "probiotics"
+2. **category:** this is the wordpress category that will be used for the articles. If it is not already created in wordpress the category would be created. Example: --category "Health & Household"
 
 Now run the app like this:
 
@@ -50,3 +50,4 @@ python3 gpt_keyword.py --keyword "probiotics" --category "Health & Household"
 5. The app will make an intro paragraph based on the langchain RetrievalQA of the keyword based on the article summaries.
 6. The app will fill out the article using the headings and RetrievalQA of the headings given the article summaries. This way everything will fit in the context window of the chat gpt turbo or chat gpt turbo 16k while also getting relevant information for each section.
 7. Tags and category are dealt with using functions available in the app.
+8. The app will log the keywords which are used in the csvs/finished/ folder with the keyword as the csv name. Example: probiotics.csv
