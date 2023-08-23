@@ -1,9 +1,6 @@
 from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
-from playwright.sync_api import sync_playwright
-import requests
-import logging
-from langchain import LLMChain, OpenAI, PromptTemplate
+from langchain import LLMChain, PromptTemplate
 from prompts import SUMMARIZE_PROMPT
 
 

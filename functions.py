@@ -1,38 +1,39 @@
 
 import re
 import requests
-from pprint import pprint
 import os
-import json
+from dotenv import load_dotenv
 
-def paragraphize(verdict):
-    out = []
-    threshold = 350
-    for chunk in verdict.split('. '):
-        if out and len(chunk)+len(out[-1]) < threshold:
-            out[-1] += ' '+chunk+'. '
-        else:
-            out.append(chunk+'. ')
-    new_verdict =''
-    for i in range(0,len(out)):
-        new_string = out[i]+"\n\n"
-        new_verdict+=new_string
-        if i == len(out)-1:
-            new_verdict = new_verdict[:-1]
-            return new_verdict
+load_dotenv()
+
+WP_MEDIA = os.getenv('WP_MEDIA')
+WP_APPLICATION_USERNAME = os.getenv('WP_APPLICATION_USERNAME')
+WP_APPLICATION_PASSWORD = os.getenv('WP_APPLICATION_PASSWORD')
+WP_CATEGORIES = os.getenv('WP_CATEGORIES')
+WP_TAGS = os.getenv('WP_TAGS')
+
+# def paragraphize(verdict):
+#     out = []
+#     threshold = 350
+#     for chunk in verdict.split('. '):
+#         if out and len(chunk)+len(out[-1]) < threshold:
+#             out[-1] += ' '+chunk+'. '
+#         else:
+#             out.append(chunk+'. ')
+#     new_verdict =''
+#     for i in range(0,len(out)):
+#         new_string = out[i]+"\n\n"
+#         new_verdict+=new_string
+#         if i == len(out)-1:
+#             new_verdict = new_verdict[:-1]
+#             return new_verdict
 
 def add_space(finder,description):
     try:
-        # print(description)
         desc_period_index = re.finditer(finder,description)
         num = re.findall(finder, description)
         num = len(num)
-        # print(desc_exclamation_index)
         print("<------ok")
-        # print(desc_period_index)
-        # print(len(desc_period_index))
-        # print(desc)
-        # print(len(desc_period_index))
        
         new_desc = ""
         start_index = 0
@@ -40,7 +41,6 @@ def add_space(finder,description):
             if description[m.start()+1]==" ":
                 if start_index==num-1:
                     print("ending")
-                # if m.start()==desc_period_index[-1]:
                     return new_desc
                 else:
                     start_index= m.start()+1
@@ -57,7 +57,7 @@ def add_space(finder,description):
         return
 
 def get_category(category,header):
-    cat_url = "https://mindfuelwave.com/wp-json/wp/v2/categories"
+    cat_url = WP_CATEGORIES
     response = requests.get(cat_url , headers=header)
     res = response.json()
 
@@ -92,43 +92,28 @@ def get_category(category,header):
         return cat_json[0]['id']
 
 def restImgUL(imgPath, type, title):
-    url='https://mindfuelwave.com/wp-json/wp/v2/media/hello'
     data = open(imgPath, 'rb').read()
 
     file_name = 'attachment; filename='+title
     new_type = 'image/'+type
-    res = requests.post(url='https://mindfuelwave.com/wp-json/wp/v2/media',
+    res = requests.post(url=WP_MEDIA,
                         data=data,
                         headers={ 'Content-Type':  new_type,'Content-Disposition' : file_name},
-                        # headers={ 'Content-Type': 'image/jpg','Content-Disposition' : 'attachment; filename=%s'% fileName},
-                        auth=('wpauserd5S2jmuq', 'H1DA pOGr 566a C55Y eolg FDpM'))
-    # pp = pprint.PrettyPrinter(indent=4) ## print it pretty. 
-    # pp.pprint(res.json()) #this is nice when you need it
+                        auth=(WP_APPLICATION_USERNAME, WP_APPLICATION_PASSWORD))
     print(res.json())
     newDict=res.json()
     newID= newDict.get('id')
     link = newDict.get('guid').get("rendered")
-    # print(newID, link)
     return (newID)
 
+
 def get_tags(tags, header):
-    tag_url = "https://mindfuelwave.com/wp-json/wp/v2/tags"
-    # response = requests.get(tag_url , headers=header)
-    # res = response.json()
-    # pprint(res)
-    # print(len(res))
-    
-    # old_tags = []
-
-    # for i in range(0,len(res)):
-    #     old_tags.append(res[i]['name'])
-
+    tag_url = WP_TAGS
     new_tags = []
     
     for l in range(0,len(tags)):
         tags[l]=tags[l].replace("#","")
-        # print(old_tags)
-        tag_url_2 = "https://mindfuelwave.com/wp-json/wp/v2/tags?search="+tags[l]
+        tag_url_2 = WP_TAGS+"?search="+tags[l]
         response = requests.get(tag_url_2 , headers=header)
         res = response.json()
         

@@ -1,31 +1,11 @@
-from langchain.agents import load_tools, Tool
-from pydantic import BaseModel, Field, validator
-from langchain.agents import initialize_agent
-from langchain.output_parsers import PydanticOutputParser
-from langchain.prompts import ChatPromptTemplate
 import json
-from langchain.chat_models import ChatOpenAI
-# from functions import paragraphize
-from keyword_prompts import my_prompt, conversational_react_description_prompt, my_zero_shot_prompt
-from langchain.prompts.chat import SystemMessage, HumanMessagePromptTemplate
-from langchain.chains.conversation.memory import ConversationBufferWindowMemory
-from langchain import PromptTemplate
-from langchain.output_parsers import ResponseSchema
-from langchain.output_parsers import StructuredOutputParser
-from templates import llm_chain_prompt_template, template_test_2
-from langchain import LLMChain, PromptTemplate
-from shared import constants
 import re
-from langchain.output_parsers import RetryWithErrorOutputParser
 from langchain.chains import RetrievalQA
 
 
 
-def section_schemas(context, heading, keyword, llm, chat, format_instructions, retriever):
-        # closest = db.similarity_search(heading)
-        # print("<----- closest")
-        # print(closest[0].page_content)
-       
+def section_schemas(heading, keyword, llm, chat, format_instructions, retriever):
+
         qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever)
         print("<----- closest")
         print(qa.run(heading))
@@ -35,6 +15,7 @@ def section_schemas(context, heading, keyword, llm, chat, format_instructions, r
 
 
         temp = """
+        Remember to have the closing quotation marks and closing curly bracket for the JSON.
         Write 6, 50 word paragraphs for my blog section for my article about "{keyword}".
         Use the context below (real article summaries)
         Keyword: "{heading}"
@@ -64,23 +45,11 @@ def section_schemas(context, heading, keyword, llm, chat, format_instructions, r
       
         messages = temp.format(
             format_instructions=format_instructions,
-            # larger_keyword=keyword,
             keyword=keyword,
             heading=heading,
             context=closest
         )
-        # temp = """
-        # Answer in english. Response should be around 350 words long.
-        # You are an expert blog writer. You should not make up any facts. Everything you write about should be in the context below.
-        # Nothing is fictional. The context is based on real articles.
-        # Write 6, 50 word paragraphs of my section about "{heading}" using the context below.
 
-        # Context: {context}
-        # """
-        # messages = temp.format(
-        #     heading=heading,
-        #     context=context
-        # )
         output_dict = llm.run(input=messages)
 
 
@@ -125,16 +94,6 @@ def section_schemas(context, heading, keyword, llm, chat, format_instructions, r
                     print("<--- json loads end")
                 except:
                     new_response = res_2
-                    # new_response = res_2
-                    # try:
-                    #     if res_2[-2] != '"':
-                    #         new_response = res_2[:-2]+'"'+"}"
-                    #         new_response = json.loads(str(new_response), strict=False)
-                    #         new_response = new_response['blog_section']
-                    #     else:
-                    #         pass
-                    # except:
-                    #     new_response = res_2
             else:
                 new_response = res_2
         else:

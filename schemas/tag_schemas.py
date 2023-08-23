@@ -1,32 +1,30 @@
-from langchain.agents import load_tools, Tool
-from pydantic import BaseModel, Field, validator
-from langchain.agents import initialize_agent
-from langchain.output_parsers import PydanticOutputParser
-from langchain.prompts import ChatPromptTemplate
 import json
-from functions import paragraphize
 from langchain.output_parsers import ResponseSchema
 from langchain.output_parsers import StructuredOutputParser
 from langchain.chat_models import ChatOpenAI
-from keyword_prompts import my_prompt
-from langchain.chains.conversation.memory import ConversationBufferWindowMemory
 from langchain import PromptTemplate
-from langchain.prompts.chat import SystemMessage, HumanMessagePromptTemplate
 from langchain import LLMChain, PromptTemplate
 from templates import llm_chain_prompt_template
 from langchain.output_parsers import ResponseSchema
 from langchain.output_parsers import StructuredOutputParser
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
+
+OPENROUTER_MODEL_16K = os.getenv('OPENROUTER_MODEL_16K')
+OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
+OPENROUTER_API_BASE = os.getenv('OPENROUTER_API_BASE')
+OPENROUTER_REFERRER = os.getenv('OPENROUTER_REFERRER')
 
 
 def tag_schemas(context, keyword):
     chat = ChatOpenAI(
         temperature=0.7,
-        # model="meta-llama/llama-2-13b-chat",
-        model="openai/gpt-3.5-turbo-16k",
-        openai_api_key="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",
-        openai_api_base="https://openrouter.ai/api/v1",
-        headers={"HTTP-Referer": "https://github.com/alexanderatallah/openrouter-streamlit"},
+        model=OPENROUTER_MODEL_16K,
+        openai_api_key=OPENROUTER_API_KEY,
+        openai_api_base=OPENROUTER_API_BASE,
+        headers={"HTTP-Referer": OPENROUTER_REFERRER},
     )
 
     temp = """
@@ -92,9 +90,9 @@ def tag_schemas(context, keyword):
         output_dict =json.loads(output_dict)
     except:
         pass
-    print("<----tags")
-    print(output_dict)
-    print("<----tags end")
+    # print("<----tags")
+    # print(output_dict)
+    # print("<----tags end")
 
     return output_dict
 

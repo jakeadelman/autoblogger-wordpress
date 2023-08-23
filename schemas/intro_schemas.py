@@ -1,18 +1,4 @@
-from langchain.agents import load_tools, Tool
-from pydantic import BaseModel, Field, validator
-from langchain.agents import initialize_agent
-from langchain.output_parsers import PydanticOutputParser
-from langchain.prompts import ChatPromptTemplate
 import json
-# from functions import paragraphize
-from langchain.chat_models import ChatOpenAI
-from keyword_prompts import my_prompt, my_zero_shot_prompt
-from langchain.chains.conversation.memory import ConversationBufferWindowMemory
-from langchain.prompts.chat import SystemMessage, HumanMessagePromptTemplate
-from langchain.output_parsers import ResponseSchema
-from langchain.output_parsers import StructuredOutputParser
-from langchain import LLMChain, PromptTemplate
-from templates import llm_chain_prompt_template, template_test
 import re
 from langchain.chains import RetrievalQA
 
@@ -70,13 +56,13 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
             try:
                 t_res = result[0].replace('“',"'")
                 t_res = t_res.replace('"',"'")
-                test_res = '{"blog_section": "'+t_res[19:]
+                test_res = '{"blog_section": "'+t_res[22:]
                 print("<--test res start")
                 period_index = test_res.rfind(".") + 1
                 res_2 = test_res[:period_index]+'"}'
             except:
                 t_res = t_res.replace('"',"'")
-                test_res = '{"blog_section": "'+t_res[19:]
+                test_res = '{"blog_section": "'+t_res[22:]
                 print("<--test res start")
                 period_index = test_res.rfind(".") + 1
                 res_2 = test_res[:period_index]+'"}'
