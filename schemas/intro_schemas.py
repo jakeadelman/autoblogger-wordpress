@@ -1,7 +1,7 @@
 import json
 import re
 from langchain.chains import RetrievalQA
-from utils.functions import find_nth
+from utils.functions import find_nth, add_json_characters
 
 def intro_schemas(keyword, llm, format_instructions, chat, retriever):
     qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever)
@@ -46,37 +46,30 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
 
 
     output_dict = llm.run(input=messages)
+
     print("output intro")
     print(output_dict)
     print("output intro end")
+
     result = re.findall(r'{([^{]*?)}', str(output_dict))
+
     if len(result)>0:
         try:
-            try:
-                t_res = result[0].replace('“',"'")
-                t_res = t_res.replace('"',"'")
-                nth=find_nth(t_res, "'",3)
-                test_res = '{"blog_section": "'+t_res[nth+1:]
-                period_index = test_res.rfind(".") + 1
-                res_2 = test_res[:period_index]+'"}'
-            except:
-                pass
-                # t_res = result.replace('"',"'")
-                # nth=find_nth(t_res, "'",3)
-                # test_res = '{"blog_section": "'+t_res[nth+1:]
-                # print("<--test res start")
-                # period_index = test_res.rfind(".") + 1
-                # res_2 = test_res[:period_index]+'"}'
-        except:
-            res_2 = output_dict
-            print("res2 second")
-    else:
-        if output_dict.startswith('{"blog_section":'):
-            t_res = output_dict.replace('"',"'")
+            t_res = result[0].replace('“',"'")
+            t_res = t_res.replace('"',"'")
             nth=find_nth(t_res, "'",3)
-            test_res = '{"blog_section": "'+t_res[nth+1:]
-            period_index = test_res.rfind(".") + 1
-            res_2 = test_res[:period_index]+'"}'
+            nth_text = t_res[nth+1:]
+            res_2 = add_json_characters(nth_text)
+        except:
+            pass
+    else:
+        stripped_output = output_dict.replace("{","")
+        stripped_output = stripped_output.strip()
+        if stripped_output.startswith('"blog_section":'):
+            t_res = stripped_output.replace('"',"'")
+            nth=find_nth(t_res, "'",3)
+            nth_text = t_res[nth+1:]
+            res_2 = add_json_characters(nth_text)
         else:
             test_res = '{"blog_section": "'+output_dict.replace('"',"'")
             period_index = test_res.rfind(".") + 1
