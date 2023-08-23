@@ -53,6 +53,7 @@ python3 gpt_keyword.py --keyword "probiotics" --category "Health & Household"
 
 ## Updates
 
-- **Aug 23, 2:47 EST -- Just updated intro schemas to add better parsing so the section will start on the right character.**
-- **Aug 23, 4:43 EST -- Just updated section schemas to add better parsing.**
+- **Aug 23, 7:00pm EST -- Updated section schemas to parse out extra heading.**
+- **Aug 23, 4:43am EST -- Just updated section schemas to add better parsing.**
+- **Aug 23, 2:47an EST -- Just updated intro schemas to add better parsing so the section will start on the right character.**
 - If anyone can change the repo to get more relevant unsplash photos for each post that would be much appreciated. The photos are generally not as related to the post as they should be.

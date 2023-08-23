@@ -71,11 +71,16 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
             res_2 = output_dict
             print("res2 second")
     else:
-        t_res = output_dict.replace('"',"'")
-        nth=find_nth(t_res, "'",3)
-        test_res = '{"blog_section": "'+t_res[nth+1:]
-        period_index = test_res.rfind(".") + 1
-        res_2 = test_res[:period_index]+'"}'
+        if output_dict.startswith('{"blog_section":'):
+            t_res = output_dict.replace('"',"'")
+            nth=find_nth(t_res, "'",3)
+            test_res = '{"blog_section": "'+t_res[nth+1:]
+            period_index = test_res.rfind(".") + 1
+            res_2 = test_res[:period_index]+'"}'
+        else:
+            test_res = '{"blog_section": "'+output_dict.replace('"',"'")
+            period_index = test_res.rfind(".") + 1
+            res_2 = test_res[:period_index]+'"}'
     
     if "I apologize" not in str(res_2):
         print("is not in string")

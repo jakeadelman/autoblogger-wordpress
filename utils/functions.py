@@ -226,3 +226,21 @@ def find_nth(haystack, needle, n):
         start = haystack.find(needle, start+len(needle))
         n -= 1
     return start
+
+def remove_extra_heading(nth_text, heading):
+    if nth_text.startswith(heading+"\n\n"):
+            heading_len = len(heading)+4
+            nth_text_shortened = nth_text[heading_len:]
+    elif nth_text.startswith(heading+":"+"\n\n"):
+        heading_len = len(heading)+5
+        nth_text_shortened = nth_text[heading_len:]
+    else:
+        nth_text_shortened = nth_text
+
+    return nth_text_shortened
+
+def add_json_characters(nth_text_shortened):
+    test_res = '{"blog_section": "'+nth_text_shortened
+    period_index = test_res.rfind(".") + 1
+    res_2 = test_res[:period_index]+'"}'
+    return res_2

@@ -1,7 +1,7 @@
 import json
 import re
 from langchain.chains import RetrievalQA
-from utils.functions import find_nth
+from utils.functions import find_nth, remove_extra_heading, add_json_characters
 
 
 
@@ -63,32 +63,31 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
         result = re.findall(r'{([^{]*?)}', str(output_dict))
 
         if len(result)>0:
+            print("length of result is "+str(len(result)))
             try:
-                try:
-                    t_res = result[0].replace('“',"'")
-                    t_res = t_res.replace('"',"'")
-                    nth=find_nth(t_res, "'",3)
-                    test_res = '{"blog_section": "'+t_res[nth+1:]
-                    print("<--test res start")
-                    period_index = test_res.rfind(".") + 1
-                    res_2 = test_res[:period_index]+'"}'
-                except:
-                    pass
-                    # t_res = t_res.replace('"',"'")
-                    # nth=find_nth(t_res, "'",3)
-                    # test_res = '{"blog_section": "'+t_res[nth+1:]
-                    # print("<--test res start")
-                    # period_index = test_res.rfind(".") + 1
-                    # res_2 = test_res[:period_index]+'"}'
+                t_res = result[0].replace('“',"'")
+                t_res = t_res.replace('"',"'")
+                nth=find_nth(t_res, "'",3)
+                nth_text = t_res[nth+1:]
+                nth_text_shortened = remove_extra_heading(nth_text, heading)
+                res_2 = add_json_characters(nth_text_shortened)
             except:
-                res_2 = output_dict
                 print("res2 second")
+                pass
         else:
-            t_res = output_dict.replace('"',"'")
-            nth=find_nth(t_res, "'",3)
-            test_res = '{"blog_section": "'+t_res[nth+1:]
-            period_index = test_res.rfind(".") + 1
-            res_2 = test_res[:period_index]+'"}'
+            if output_dict.startswith('{"blog_section":'):
+                t_res = output_dict.replace('"',"'")
+                nth=find_nth(t_res, "'",3)
+                nth_text = t_res[nth+1:]
+                nth_text_shortened = remove_extra_heading(nth_text, heading)
+                res_2 = add_json_characters(nth_text_shortened)
+            elif output_dict.startswith(heading+"\n\n") or output_dict.startswith(heading+":"+"\n\n"):
+                nth_text_shortened = remove_extra_heading(output_dict, heading)
+                res_2 = add_json_characters(nth_text_shortened)
+            else:
+                test_res = '{"blog_section": "'+output_dict.replace('"',"'")
+                period_index = test_res.rfind(".") + 1
+                res_2 = test_res[:period_index]+'"}'
 
         if "I apologize" not in str(res_2):
             print("is not in string")
@@ -101,22 +100,6 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
             new_response = res_2
 
 
-
-        # if new_response.startswith(heading+": ") or new_response.startswith(heading.title()+": "):
-        #     heading_len = len(heading)+1
-        #     new_response = new_response[heading_len:]
-        
-        # if new_response.startswith(heading+" ") or new_response.startswith(heading.title()+" "):
-        #     heading_len = len(heading)+1
-        #     new_response = new_response[heading_len:]
-
-        if new_response.startswith(heading+"\n\n") or new_response.startswith(heading.title()+" "):
-            heading_len = len(heading)+2
-            new_response = new_response[heading_len:]
-
-        if new_response.startswith(heading+":"+"\n\n") or new_response.startswith(heading.title()+" "):
-            heading_len = len(heading)+2
-            new_response = new_response[heading_len:]
 
         print("<---section start")
         print("section for "+heading)

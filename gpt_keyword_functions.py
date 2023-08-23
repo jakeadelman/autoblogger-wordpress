@@ -64,7 +64,7 @@ def blog(keyword, context, chat, retriever):
                                        llm=llm,
                                        chat=chat,
                                        retriever=retriever)
-        if "I apologize" in new_response or "Final response to human" in new_response or len(new_response)<120:
+        if "I apologize" in new_response or "Final response to human" in new_response or len(new_response)<350:
             count += 1
             pass
         else:
