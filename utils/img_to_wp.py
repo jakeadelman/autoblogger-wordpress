@@ -1,5 +1,5 @@
 import requests
-from functions import restImgUL
+from utils.functions import restImgUL
 import os
 from pyunsplash import PyUnsplash
 import random

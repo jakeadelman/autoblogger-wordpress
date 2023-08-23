@@ -1,7 +1,7 @@
 import json
 import re
 from langchain.chains import RetrievalQA
-from functions import find_nth
+from utils.functions import find_nth
 
 
 

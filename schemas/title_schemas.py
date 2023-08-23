@@ -1,6 +1,6 @@
 import json
 from langchain import LLMChain, PromptTemplate
-from templates import llm_chain_prompt_template
+from prompts.templates import llm_chain_prompt_template
 from langchain.output_parsers import ResponseSchema
 from langchain.output_parsers import StructuredOutputParser
 from langchain.chains import RetrievalQA

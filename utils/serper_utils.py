@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
 from langchain import LLMChain, PromptTemplate
-from prompts import SUMMARIZE_PROMPT
+from prompts.prompts import SUMMARIZE_PROMPT
 
 
 def summarize_text(text: str, topic: str, chat ) -> str:

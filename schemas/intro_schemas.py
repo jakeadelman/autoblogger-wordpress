@@ -1,7 +1,7 @@
 import json
 import re
 from langchain.chains import RetrievalQA
-from functions import find_nth
+from utils.functions import find_nth
 
 def intro_schemas(keyword, llm, format_instructions, chat, retriever):
     qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever)

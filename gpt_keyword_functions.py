@@ -7,7 +7,7 @@ from schemas.intro_schemas import intro_schemas
 from schemas.section_schemas import section_schemas
 from langchain.chains.conversation.memory import ConversationBufferMemory
 from langchain import LLMChain, PromptTemplate
-from templates import template_test_2
+from prompts.templates import template_test_2
 import string
 
 

@@ -3,12 +3,11 @@ import argparse
 import csv
 import requests
 import base64
-from functions import get_category
+from utils.functions import get_category, get_tags
 from langchain.chat_models import ChatOpenAI
-from functions import get_tags
 from os.path import exists
 import csv
-from img_to_wp import img_to_wp
+from utils.img_to_wp import img_to_wp
 import string
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
