@@ -26,9 +26,7 @@ Fields to change:
 
 ### Step 3: Create CSV with keywords list
 
-Now you should create a CSV file in csvs/ with a list of your keywords the app will use.
-You can easily create a compatible CSV file by exporting a keywords list from ahrefs.com
-Otherwise you can create a CSV by copying the probiotics.csv which is already in the directory. The CSV file should contain a column that is labeled Keyword (with capital K). No other columns are needed.
+Now you should create a CSV file in csvs/ with a list of your keywords the app will use. You can easily create a compatible CSV file by exporting a keywords list from ahrefs.com. Otherwise you can create a CSV by copying the probiotics.csv which is already in the directory. The CSV file should contain a column that is labeled Keyword (with capital K). No other columns are needed.
 
 ### Step 4: Starting the app
 
@@ -42,3 +40,13 @@ Now run the app like this:
 ```
 python3 gpt_keyword.py --keyword "probiotics" --category "Health & Household"
 ```
+
+## How it works
+
+1. The app will scrape the first page of organic google search results using serper.dev and playwright python.
+2. The app will summarize each result using Chat GPT and combine the summaries.
+3. The app will come up with a slug, tags, title and ~10 headings for the article based on the content of the article summaries.
+4. The app will search the tags on unsplash and get the first image for the featured image in your article.
+5. The app will make an intro paragraph based on the langchain RetrievalQA of the keyword based on the article summaries.
+6. The app will fill out the article using the headings and RetrievalQA of the headings given the article summaries. This way everything will fit in the context window of the chat gpt turbo or chat gpt turbo 16k while also getting relevant information for each section.
+7. Tags and category are dealt with using functions available in the app.
