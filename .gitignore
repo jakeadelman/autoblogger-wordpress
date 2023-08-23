@@ -5,3 +5,4 @@ schemas/__pycache__/
 images/*
 .DS_Store
 ./csvs/.DS_Store
+test.py
