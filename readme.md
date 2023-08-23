@@ -13,16 +13,16 @@ pip3 install -r requirements.txt
 Copy the .env.example file into a file called .env in the root of the directory
 Fields to change:
 
-1. OPENROUTER_API_KEY: Go to openrouter.ai and create api key. Insert it in the .env file.
-2. WP_MEDIA: Change the base url in the WP_MEDIA line in the .env file to your website.
+1. **OPENROUTER_API_KEY:** Go to openrouter.ai and create api key. Insert it in the .env file.
+2. **WP_MEDIA:** Change the base url in the WP_MEDIA line in the .env file to your website.
 3. Go to add new plugin in wordpress. Search for "application passwords" and install the first app.
    ![application passwords plugin](./readme_images/application_passwords.png)
-4. Create a new application in the application passwords app and input WP_APPLICATION_USERNAME and WP_APPLICATION_PASSWORD in the .env file.
-5. WP_CATEGORIES: replace base url with your site.
-6. WP_TAGS: replace base url with your site
-7. UNSPLASH_API_KEY: Make an api key on unsplash.com and replace your api key in the .env file.
-8. SERPER_API_KEY: Make an api key on serper.dev and replace your api key in the .env file.
-9. OPENAI_API_KEY: Make an api key on openai.com and replace your api key in the .env file.
+4. Create a new application in the application passwords app and input **WP_APPLICATION_USERNAME** and **WP_APPLICATION_PASSWORD** in the .env file.
+5. **WP_CATEGORIES:** replace base url with your site.
+6. **WP_TAGS:** replace base url with your site
+7. **UNSPLASH_API_KEY:** Make an api key on unsplash.com and replace your api key in the .env file.
+8. **SERPER_API_KEY:** Make an api key on serper.dev and replace your api key in the .env file.
+9. **OPENAI_API_KEY:** Make an api key on openai.com and replace your api key in the .env file.
 
 ### Step 3: Create CSV with keywords list
 

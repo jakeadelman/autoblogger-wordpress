@@ -35,7 +35,6 @@ def slug_schemas(keyword, context):
     Strictly follow the following steps:
     1. Make sure it is 4 to 7 words long.
     2. Make sure all words are lowercase.
-    3. Never search the same thing on google twice.
 
     {format_instructions}
 
