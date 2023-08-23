@@ -16,7 +16,7 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
     Don't add any titles or forword before the introduction.
     Expand on this keyword in 4, 50 word paragraphs for my introduction for my article about "{keyword}".
     Use the context below which is based on real article summaries.
-    There should be at least 3 paragraphs.
+    There should be at least 3 paragraphs. It should be under 300 words.
 
     Use this context (real article summaries) to create the intro.
     Context: {context}

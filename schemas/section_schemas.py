@@ -1,6 +1,7 @@
 import json
 import re
 from langchain.chains import RetrievalQA
+from functions import find_nth
 
 
 
@@ -66,13 +67,15 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
                 try:
                     t_res = result[0].replace('“',"'")
                     t_res = t_res.replace('"',"'")
-                    test_res = '{"blog_section": "'+t_res[19:]
+                    nth=find_nth(t_res, "'",3)
+                    test_res = '{"blog_section": "'+t_res[nth+1:]
                     print("<--test res start")
                     period_index = test_res.rfind(".") + 1
                     res_2 = test_res[:period_index]+'"}'
                 except:
                     t_res = t_res.replace('"',"'")
-                    test_res = '{"blog_section": "'+t_res[19:]
+                    nth=find_nth(t_res, "'",3)
+                    test_res = '{"blog_section": "'+t_res[nth+1:]
                     print("<--test res start")
                     period_index = test_res.rfind(".") + 1
                     res_2 = test_res[:period_index]+'"}'
