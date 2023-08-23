@@ -1,5 +1,5 @@
 .env
-__pycache__
-utils/__pycache__
-schemas/__pycache__
+__pycache__/
+utils/__pycache__/
+schemas/__pycache__/
 images/*
