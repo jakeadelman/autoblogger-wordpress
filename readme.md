@@ -50,3 +50,8 @@ python3 gpt_keyword.py --keyword "probiotics" --category "Health & Household"
 6. The app will fill out the article using the headings and RetrievalQA of the headings given the article summaries. This way everything will fit in the context window of the chat gpt turbo or chat gpt turbo 16k while also getting relevant information for each section.
 7. Tags and category are dealt with using functions available in the app.
 8. The app will log the keywords which are used in the csvs/finished/ folder with the keyword as the csv name. Example: probiotics.csv
+
+## Updates
+
+**just updated intro schemas to add better parsing so the section will start on the right character**\
+If anyone can change the repo to get more relevant unsplash photos for each post that would be much appreciated. The photos are generally not as related to the post as they should be.
