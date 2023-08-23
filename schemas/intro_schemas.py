@@ -16,7 +16,7 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
     Don't add any titles or forword before the introduction.
     Expand on this keyword in 4, 50 word paragraphs for my introduction for my article about "{keyword}".
     Use the context below which is based on real article summaries.
-    There should be at least 3 paragraphs. Separate each paragraph with "\\n\n".
+    There should be at least 3 paragraphs.
 
     Use this context (real article summaries) to create the intro.
     Context: {context}
@@ -29,7 +29,6 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
     Final Checks:
     Is the entire thing more than 300 words long? If so, shorten it.
     Are any of the paragraphs longer than 50 words? If so, break them up into smaller paragraphs.
-    Are any of the paragraphs not separated with "\\n\n"? If so, add "\\n\n"/
     Is there a closing quotation mark for the JSON content? If not, add one.
 
 

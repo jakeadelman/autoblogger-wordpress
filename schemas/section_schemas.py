@@ -20,7 +20,6 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
         Use the context below (real article summaries)
         Keyword: "{heading}"
         
-        Separate each paragraph with "\\n\n".
         There should be at least 5 paragraphs.
 
         Use this context (real article summaries) to create the intro.
@@ -33,9 +32,9 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
 
         Final Checks:
         Do not say 'Sure!'
+        Don't have any headings in the blog section.
         Are any of the paragraphs longer than 80 words? If so, break them up into smaller paragraphs.
         Is the entire thing under 250 words? If so, lengthen it.
-        Are any of the paragraphs not separated with "\\n\n"? If so, add "\\n\n".
         Is there a closing quotation mark for the JSON content? If not, add one.
 
         

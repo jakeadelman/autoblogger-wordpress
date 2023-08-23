@@ -10,8 +10,7 @@ pip3 install -r requirements.txt
 
 ### Step 2: Create .env file and input your credentials
 
-Copy the .env.example file into a file called .env in the root of the directory
-Fields to change:
+Copy the .env.example file into a file called .env in the root of the directory. Here are the fields to change:
 
 1. **OPENROUTER_API_KEY:** Go to openrouter.ai and create api key. Insert it in the .env file.
 2. **WP_MEDIA:** Change the base url in the WP_MEDIA line in the .env file to your website.
