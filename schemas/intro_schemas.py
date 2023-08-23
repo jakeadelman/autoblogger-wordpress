@@ -61,30 +61,36 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
                 period_index = test_res.rfind(".") + 1
                 res_2 = test_res[:period_index]+'"}'
             except:
-                t_res = t_res.replace('"',"'")
-                nth=find_nth(t_res, "'",3)
-                test_res = '{"blog_section": "'+t_res[nth+1:]
-                print("<--test res start")
-                period_index = test_res.rfind(".") + 1
-                res_2 = test_res[:period_index]+'"}'
+                pass
+                # t_res = result.replace('"',"'")
+                # nth=find_nth(t_res, "'",3)
+                # test_res = '{"blog_section": "'+t_res[nth+1:]
+                # print("<--test res start")
+                # period_index = test_res.rfind(".") + 1
+                # res_2 = test_res[:period_index]+'"}'
         except:
             res_2 = output_dict
             print("res2 second")
-    
-        if "I apologize" not in str(res_2):
-            print("is not in string")
-            try:
-                new_response = json.loads(str(res_2), strict=False)
-                new_response = new_response['blog_section']
-            except:
-                if res_2[-2] != '"':
-                    new_response = res_2[:-2]+'"'+"}"
-                    new_response = json.loads(str(new_response), strict=False)
-                    new_response = new_response['blog_section']
-        else:
-            new_response = res_2
     else:
-        new_response = output_dict
+        t_res = output_dict.replace('"',"'")
+        nth=find_nth(t_res, "'",3)
+        test_res = '{"blog_section": "'+t_res[nth+1:]
+        period_index = test_res.rfind(".") + 1
+        res_2 = test_res[:period_index]+'"}'
+    
+    if "I apologize" not in str(res_2):
+        print("is not in string")
+        try:
+            new_response = json.loads(str(res_2), strict=False)
+            new_response = new_response['blog_section']
+        except:
+            if res_2[-2] != '"':
+                new_response = res_2[:-2]+'"'+"}"
+                new_response = json.loads(str(new_response), strict=False)
+                new_response = new_response['blog_section']
+    else:
+        new_response = res_2
+    
 
 
 
