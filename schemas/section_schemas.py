@@ -53,14 +53,6 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
 
         output_dict = llm.run(input=messages)
 
-
-
-        # print("<---output dict1")
-        # print("<----- for "+heading)
-        # print(output_dict)
-        # print("<---output dict2")
-
-        print(heading+r"\n\n" in output_dict)
         output_dict = remove_extra_heading(output_dict, heading)
         result = re.findall(r'{([^{]*?)}', str(output_dict))
 
