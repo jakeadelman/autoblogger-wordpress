@@ -64,7 +64,7 @@ if not exists(finished_file_path):
 
 
 chat = ChatOpenAI(
-    temperature=0.7,
+    temperature=0.1,
     model=OPENROUTER_MODEL_16K,
     openai_api_key=OPENROUTER_API_KEY,
     openai_api_base=OPENROUTER_API_BASE,

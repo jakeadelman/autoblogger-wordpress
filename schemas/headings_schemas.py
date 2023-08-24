@@ -19,7 +19,7 @@ OPENROUTER_REFERRER = os.getenv('OPENROUTER_REFERRER')
 
 def headings_schemas(keyword, context):
     chat = ChatOpenAI(
-        temperature=0.7,
+        temperature=0.1,
         model=OPENROUTER_MODEL_16K,
         openai_api_key=OPENROUTER_API_KEY,
         openai_api_base=OPENROUTER_API_BASE,
@@ -29,7 +29,7 @@ def headings_schemas(keyword, context):
     temp = """
     Make sure there is opening and closing quotation marks and curly brackets.
     Make sure there is only 1 headings_list.
-    Can you come up with 11 to 17 different headings for my article on {keyword}.
+    Can you come up with 10 to 13 different headings for my article on {keyword}.
     DO NOT give the output as a numbered list. Make sure it is in JSON format.
     Make sure they are on the topic of {keyword}
 

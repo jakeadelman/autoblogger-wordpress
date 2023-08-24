@@ -73,7 +73,7 @@ def blog(keyword, context, chat, retriever):
             content += """<h2>"""+headings_cap+"""</h2>"""
             content += """<p>"""+new_response+"""</p>"""
             count += 1
-        if count == len(headings['headings_list'])-1 or count==8:
+        if count == len(headings['headings_list'])-1 or count==13:
             print("<----start content")
             print(content)
             print("<----start content end")
