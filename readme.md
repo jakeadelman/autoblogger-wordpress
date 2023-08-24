@@ -53,6 +53,7 @@ python3 gpt_keyword.py --keyword "probiotics" --category "Health & Household"
 
 ## Updates
 
+- **Aug 23 11:38pm EST - Fixed bug in section schemas to parse out extra heading**
 - **Aug 23, 7:00pm EST -- Updated section schemas to parse out extra heading.**
 - **Aug 23, 4:43am EST -- Just updated section schemas to add better parsing.**
 - **Aug 23, 2:47an EST -- Just updated intro schemas to add better parsing so the section will start on the right character.**

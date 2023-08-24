@@ -57,7 +57,6 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
         result = re.findall(r'{([^{]*?)}', str(output_dict))
 
         if len(result)>0:
-            print("length of result is "+str(len(result)))
             try:
                 t_res = result[0].strip().replace('“',"'")
                 t_res = t_res.replace('"',"'")
