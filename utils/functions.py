@@ -228,12 +228,12 @@ def find_nth(haystack, needle, n):
     return start
 
 def remove_extra_heading(nth_text, heading):
-    if nth_text.startswith(heading+"\n\n"):
-            heading_len = len(heading)+4
-            nth_text_shortened = nth_text[heading_len:]
-    elif nth_text.startswith(heading+":"+"\n\n"):
-        heading_len = len(heading)+5
-        nth_text_shortened = nth_text[heading_len:]
+    heading_w_newline = heading+"\n\n" 
+    heading_w_newline_and_colon = heading+":\n\n" 
+    if heading_w_newline in nth_text:
+        nth_text_shortened = nth_text.replace(heading_w_newline, "")
+    elif heading_w_newline_and_colon in nth_text:
+        nth_text_shortened = nth_text.replace(heading_w_newline_and_colon, "")
     else:
         nth_text_shortened = nth_text
 

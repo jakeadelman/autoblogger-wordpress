@@ -59,7 +59,7 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
         print("<----- for "+heading)
         print(output_dict)
         print("<---output dict2")
-
+        output_dict = remove_extra_heading(output_dict, heading)
         result = re.findall(r'{([^{]*?)}', str(output_dict))
 
         if len(result)>0:
@@ -69,8 +69,7 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
                 t_res = t_res.replace('"',"'")
                 nth=find_nth(t_res, "'",3)
                 nth_text = t_res[nth+1:]
-                nth_text_shortened = remove_extra_heading(nth_text, heading)
-                res_2 = add_json_characters(nth_text_shortened)
+                res_2 = add_json_characters(nth_text)
             except:
                 print("res2 second")
                 pass
@@ -81,11 +80,9 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
                 t_res = stripped_output.replace('"',"'")
                 nth=find_nth(t_res, "'",3)
                 nth_text = t_res[nth+1:]
-                nth_text_shortened = remove_extra_heading(nth_text, heading)
-                res_2 = add_json_characters(nth_text_shortened)
+                res_2 = add_json_characters(nth_text)
             elif stripped_output.startswith(heading+"\n\n") or stripped_output.startswith(heading+":"+"\n\n"):
-                nth_text_shortened = remove_extra_heading(stripped_output, heading)
-                res_2 = add_json_characters(nth_text_shortened)
+                res_2 = add_json_characters(nth_text)
             else:
                 test_res = '{"blog_section": "'+output_dict.replace('"',"'")
                 period_index = test_res.rfind(".") + 1
