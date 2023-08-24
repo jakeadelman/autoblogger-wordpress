@@ -60,6 +60,9 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
         print(output_dict)
         print("<---output dict2")
         output_dict = remove_extra_heading(output_dict, heading)
+        print("<--- output dict 3")
+        print(output_dict)
+        print("<-- output dict 4")
         result = re.findall(r'{([^{]*?)}', str(output_dict))
 
         if len(result)>0:
