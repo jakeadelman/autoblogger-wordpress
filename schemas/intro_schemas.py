@@ -77,6 +77,7 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
     
     if "I apologize" not in str(res_2):
         print("is not in string")
+        print(res_2)
         try:
             new_response = json.loads(str(res_2), strict=False)
             new_response = new_response['blog_section']

@@ -228,16 +228,18 @@ def find_nth(haystack, needle, n):
     return start
 
 def remove_extra_heading(nth_text, heading):
-    heading_w_newline = heading+"\n\n" 
-    heading_w_newline_and_colon = heading+":\n\n" 
+    heading_w_newline = heading+r"\n\n"
+    heading_w_newline_and_colon = heading+r":\n\n"
+    # print(heading_w_newline, heading_w_newline_and_colon)
     if heading_w_newline in nth_text:
-        nth_text_shortened = nth_text.replace(heading_w_newline, "")
+        nth_text = nth_text.replace(heading_w_newline, "")
     elif heading_w_newline_and_colon in nth_text:
-        nth_text_shortened = nth_text.replace(heading_w_newline_and_colon, "")
+        nth_text = nth_text.replace(heading_w_newline_and_colon, "")
     else:
-        nth_text_shortened = nth_text
+        print("passing")
+        pass
 
-    return nth_text_shortened
+    return str(nth_text)
 
 def add_json_characters(nth_text_shortened):
     test_res = '{"blog_section": "'+nth_text_shortened
