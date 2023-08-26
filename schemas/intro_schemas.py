@@ -13,6 +13,7 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
 
 
     temp = """
+    Make sure to write as a blog writer NOT as the manufacturer. Don't start the intro with 'Yes'.
     Don't add any titles or forword before the introduction.
     Expand on this keyword in 4, 50 word paragraphs for my introduction for my article about "{keyword}".
     Use the context below which is based on real article summaries.
@@ -50,6 +51,9 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
     print("output intro")
     print(output_dict)
     print("output intro end")
+    
+    output_dict = output_dict.replace("\\'","'")
+    output_dict = output_dict.replace('\\"',"'")
 
     result = re.findall(r'{([^{]*?)}', str(output_dict))
 
@@ -67,6 +71,7 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
         stripped_output = stripped_output.strip()
         if stripped_output.startswith('"blog_section":'):
             t_res = stripped_output.replace('"',"'")
+            t_res = t_res.replace('“',"'")
             nth=find_nth(t_res, "'",3)
             nth_text = t_res[nth+1:]
             res_2 = add_json_characters(nth_text)

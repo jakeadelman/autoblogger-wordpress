@@ -22,6 +22,8 @@ Copy the .env.example file into a file called .env in the root of the directory.
 7. **UNSPLASH_API_KEY:** Make an api key on unsplash.com and replace your api key in the .env file.
 8. **SERPER_API_KEY:** Make an api key on serper.dev and replace your api key in the .env file.
 9. **OPENAI_API_KEY:** Make an api key on openai.com and replace your api key in the .env file.
+10. **WP_BASE:** Change to your base url.
+11. **WP_POSTS:** Change to your posts url.
 
 ### Step 3: Create CSV with keywords list
 

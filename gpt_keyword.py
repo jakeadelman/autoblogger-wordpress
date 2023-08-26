@@ -21,6 +21,7 @@ from schemas.slug_schemas import slug_schemas
 from utils.serper_web_utils import search_and_summarize_web_url
 import asyncio
 import os
+from random import *
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -31,6 +32,8 @@ OPENROUTER_REFERRER = os.getenv('OPENROUTER_REFERRER')
 OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
 OPENROUTER_MODEL = os.getenv('OPENROUTER_MODEL')
 WP_APPLICATION_USERNAME = os.getenv('WP_APPLICATION_USERNAME')
+WP_POSTS = os.getenv('WP_POSTS')
+WP_BASE = os.getenv('WP_BASE')
 WP_APPLICATION_PASSWORD = os.getenv('WP_APPLICATION_PASSWORD')
 
 os.environ["OPENAI_API_KEY"] = os.getenv('OPENAI_API_KEY')
@@ -90,14 +93,17 @@ with open(filepath, mode='r') as csv_file:
 
             context = asyncio.run(search_and_summarize_web_url(specific_keyword,chat))
 
-            open('./text/text.txt', 'w').close()
-            with open('./text/text.txt', 'w') as f:
+            rando = randint(1,100000)
+            rand_name = "text-"+str(rando)
+            rand_path = './text/'+rand_name+'.txt'
+            open(rand_path, 'w').close()
+            with open(rand_path, 'w') as f:
                 f.write(context)
 
             
 
             # retrieval q and a
-            loader = TextLoader("./text/text.txt")
+            loader = TextLoader(rand_path)
             documents = loader.load()
             text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
             texts = text_splitter.split_documents(documents)
@@ -167,17 +173,18 @@ with open(filepath, mode='r') as csv_file:
                     'bk_post_layout_standard':'single-2'
                 }
             }
-            url = "https://mindfuelwave.com/wp-json/wp/v2/posts"
+            url = WP_POSTS
 
             response = requests.post(url , headers=header, json=post)
             response_json = response.json()
             if response.status_code == 201:
                 with open(finished_file_path, 'a') as f:
-                    my_slug = "https://mindfuelwave.com/"+response_json['slug']
+                    my_slug = WP_BASE +response_json['slug']
                     field_names = ['keyword','url']     
                     my_writer = csv.writer(f)
                     my_writer.writerow([specific_keyword,my_slug])
                     f.close()
+                    os.remove(rand_path)
                     print("file added to finished posts csv")
 
 

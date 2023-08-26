@@ -6,17 +6,27 @@ from utils.functions import find_nth, remove_extra_heading, add_json_characters
 
 
 def section_schemas(heading, keyword, llm, chat, format_instructions, retriever):
+        
+        if "Introduction" in heading:
+            return 'none'
+        elif "introduction" in heading:
+            return 'none'
 
-        qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever)
-        print("<----- closest")
-        print(qa.run(heading))
-        closest = qa.run(heading)
-        print("<----- closest end")
-
+        try:
+            qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever)
+            print("<----- closest")
+            print(qa.run(heading))
+            closest = qa.run(heading)
+            print("<----- closest end")
+        except:
+            print("<---- excepting out of qa")
+            return "nothing"
 
 
         temp = """
+        Make sure to write as a blog writer NOT as the manufacturer. Don't start the intro with 'Yes'.
         Remember to have the closing quotation marks and closing curly bracket for the JSON.
+        Remember - DO NOT add any titles, subtitles or intro before the blog section.
         Write 6, 50 word paragraphs for my blog section for my article about "{keyword}".
         Use the context below (real article summaries)
         Keyword: "{heading}"
@@ -53,6 +63,12 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
 
         output_dict = llm.run(input=messages)
 
+        print("<-- output dict start for "+heading)
+        print(output_dict)
+        print(heading+r"\n\n" in output_dict)
+        print("<-- output dict end")
+        output_dict = output_dict.replace("\\'","'")
+        output_dict = output_dict.replace('\\"',"'")
         output_dict = remove_extra_heading(output_dict, heading)
         result = re.findall(r'{([^{]*?)}', str(output_dict))
 
@@ -71,6 +87,7 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
             stripped_output = stripped_output.strip()
             if stripped_output.startswith('"blog_section":'):
                 t_res = stripped_output.replace('"',"'")
+                t_res = t_res.replace('“',"'")  
                 nth=find_nth(t_res, "'",3)
                 nth_text = t_res[nth+1:]
                 res_2 = add_json_characters(nth_text)
