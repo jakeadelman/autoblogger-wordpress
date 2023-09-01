@@ -12,22 +12,6 @@ WP_APPLICATION_PASSWORD = os.getenv('WP_APPLICATION_PASSWORD')
 WP_CATEGORIES = os.getenv('WP_CATEGORIES')
 WP_TAGS = os.getenv('WP_TAGS')
 
-# def paragraphize(verdict):
-#     out = []
-#     threshold = 350
-#     for chunk in verdict.split('. '):
-#         if out and len(chunk)+len(out[-1]) < threshold:
-#             out[-1] += ' '+chunk+'. '
-#         else:
-#             out.append(chunk+'. ')
-#     new_verdict =''
-#     for i in range(0,len(out)):
-#         new_string = out[i]+"\n\n"
-#         new_verdict+=new_string
-#         if i == len(out)-1:
-#             new_verdict = new_verdict[:-1]
-#             return new_verdict
-
 def add_space(finder,description):
     try:
         desc_period_index = re.finditer(finder,description)
