@@ -5,7 +5,7 @@ from schemas.title_schemas import title_schemas
 from schemas.headings_schemas import headings_schemas
 from schemas.intro_schemas import intro_schemas
 from schemas.section_schemas import section_schemas
-from schemas.rewrite_schemas import rewrite_schemas
+from schemas.rewrite_schemas import rewrite_schemas, rewrite_schemas_intro
 from langchain.chains.conversation.memory import ConversationBufferMemory
 from langchain import LLMChain, PromptTemplate
 from prompts.templates import template_test_2, template_test_3
@@ -76,7 +76,7 @@ def blog(keyword, context, chat, chat2, retriever):
                                        llm=llm,
                                        chat=chat,
                                        retriever=retriever)
-        new_response = rewrite_schemas(input=new_response, llm=llm2)
+        new_response = rewrite_schemas_intro(input=new_response, llm=llm2)
         if "I apologize" in new_response or "Final response to human" in new_response or len(new_response)<350:
             count += 1
             pass

@@ -25,6 +25,13 @@ Also make sure there is a closing quotation mark for the JSON string.
 Question: {input}
 AI:
 """
+template_test_4 = """
+Use the section passed in under 'Question'-> 'Section' and rewrite it using the instructions below.
+
+{format_instructions}
+
+Section to rewrite (rewrite the whole thing): {input}
+"""
 
 llm_chain_prompt_template = f"""
     Answer the question based on the information below and output in JSON format with the keys specified below.

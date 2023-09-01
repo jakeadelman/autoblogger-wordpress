@@ -28,7 +28,7 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
         {HUMAN_PROMPT}
 
 
-
+        Don't repeat anything you've already said.
         Do not write anything about Artificial Intelligence. If anything is about artificial intelligence remove it.
         Make sure to write as a blog writer NOT as the manufacturer. Don't start the intro with 'Yes'.
         Remember to have the closing quotation marks and closing curly bracket for the JSON.

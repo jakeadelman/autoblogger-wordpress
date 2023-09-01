@@ -103,7 +103,7 @@ with open(filepath, mode='r') as csv_file:
             texts = text_splitter.split_documents(documents)
             embeddings = OpenAIEmbeddings()
             db = Chroma.from_documents(texts, embeddings)
-            retriever = db.as_retriever(search_type="similarity", search_kwargs={"k":5})
+            retriever = db.as_retriever(search_type="mmr", search_kwargs={"k":20})
 
 
             print("<----specific keyword")
