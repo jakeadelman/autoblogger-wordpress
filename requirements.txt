@@ -1,5 +1,5 @@
 beautifulsoup4==4.12.2
-langchain==0.0.271
+langchain==0.0.277
 playwright==1.37.0
 python-dotenv==1.0.0
 pyunsplash==1.0.0rc2

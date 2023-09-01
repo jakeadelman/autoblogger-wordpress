@@ -2,7 +2,7 @@ import json
 import re
 from langchain.chains import RetrievalQA
 from utils.functions import find_nth, remove_extra_heading, add_json_characters
-
+from prompts.prompts import HUMAN_PROMPT
 
 
 def section_schemas(heading, keyword, llm, chat, format_instructions, retriever):
@@ -24,6 +24,12 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
 
 
         temp = """
+        Keep the following in mind when writing the blog section:
+        {HUMAN_PROMPT}
+
+
+
+        Do not write anything about Artificial Intelligence. If anything is about artificial intelligence remove it.
         Make sure to write as a blog writer NOT as the manufacturer. Don't start the intro with 'Yes'.
         Remember to have the closing quotation marks and closing curly bracket for the JSON.
         Remember - DO NOT add any titles, subtitles or intro before the blog section.
@@ -58,7 +64,8 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
             format_instructions=format_instructions,
             keyword=keyword,
             heading=heading,
-            context=closest
+            context=closest,
+            HUMAN_PROMPT=HUMAN_PROMPT
         )
 
         output_dict = llm.run(input=messages)

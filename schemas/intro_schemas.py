@@ -2,6 +2,7 @@ import json
 import re
 from langchain.chains import RetrievalQA
 from utils.functions import find_nth, add_json_characters
+from prompts.prompts import HUMAN_PROMPT
 
 def intro_schemas(keyword, llm, format_instructions, chat, retriever):
     qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever)
@@ -13,6 +14,11 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
 
 
     temp = """
+    Keep the following in mind when writing the blog section:
+    {HUMAN_PROMPT}
+
+
+    Do not write anything about Artificial Intelligence. If anything is about artificial intelligence remove it.
     Make sure to write as a blog writer NOT as the manufacturer. Don't start the intro with 'Yes'.
     Don't add any titles or forword before the introduction.
     Expand on this keyword in 4, 50 word paragraphs for my introduction for my article about "{keyword}".
@@ -42,7 +48,8 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
     messages = temp.format(
         keyword=keyword,
         format_instructions=format_instructions,
-        context=closest
+        context=closest,
+        HUMAN_PROMPT=HUMAN_PROMPT
     )
 
 

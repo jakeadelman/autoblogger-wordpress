@@ -14,21 +14,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-OPENROUTER_MODEL_16K = os.getenv('OPENROUTER_MODEL_16K')
-OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
-OPENROUTER_API_BASE = os.getenv('OPENROUTER_API_BASE')
-OPENROUTER_REFERRER = os.getenv('OPENROUTER_REFERRER')
+os.environ["OPENAI_API_KEY"] = os.getenv('OPENAI_API_KEY')
 
 
 def slug_schemas(keyword, context):
     chat = ChatOpenAI(
-        temperature=0.7,
-        model=OPENROUTER_MODEL_16K,
-        openai_api_key=OPENROUTER_API_KEY,
-        openai_api_base=OPENROUTER_API_BASE,
-        headers={"HTTP-Referer": OPENROUTER_REFERRER},
-    )
-
+        temperature=0,
+        model_name='gpt-3.5-turbo-16k-0613'
+    )       
     temp = """
     Can you give me a 4-7 word-long slug delineated with hyphens for my article on {topic}.
 
@@ -70,6 +63,7 @@ def slug_schemas(keyword, context):
 
     _input = prompt.format(question=messages)
 
+    # llm = LLMChain(llm=chat, prompt=prompt)
     llm = LLMChain(llm=chat, prompt=prompt, output_parser=output_parser)
 
     output_dict = llm.run(_input)

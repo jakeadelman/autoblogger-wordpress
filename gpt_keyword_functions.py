@@ -5,14 +5,15 @@ from schemas.title_schemas import title_schemas
 from schemas.headings_schemas import headings_schemas
 from schemas.intro_schemas import intro_schemas
 from schemas.section_schemas import section_schemas
+from schemas.rewrite_schemas import rewrite_schemas
 from langchain.chains.conversation.memory import ConversationBufferMemory
 from langchain import LLMChain, PromptTemplate
-from prompts.templates import template_test_2
+from prompts.templates import template_test_2, template_test_3
 import string
 
 
 
-def blog(keyword, context, chat, retriever):
+def blog(keyword, context, chat, chat2, retriever):
     
     blog_section = ResponseSchema(
         name="blog_section",
@@ -30,7 +31,14 @@ def blog(keyword, context, chat, retriever):
         input_variables=["input","chat_history"], 
         template=template_test_2,
         partial_variables={"format_instructions": format_instructions},
-        output_parser=output_parser
+        # output_parser=output_parser
+
+    )
+    prompt2 = PromptTemplate(
+        input_variables=["input"], 
+        template=template_test_3,
+        partial_variables={"format_instructions": format_instructions},
+        # output_parser=output_parser
 
     )
     memory = ConversationBufferMemory(memory_key="chat_history", k=2)
@@ -38,6 +46,9 @@ def blog(keyword, context, chat, retriever):
     llm = LLMChain(llm=chat, 
         prompt=prompt,
         memory=memory)
+    
+    llm2 = LLMChain(llm=chat2, 
+        prompt=prompt2)
 
 
 
@@ -51,6 +62,7 @@ def blog(keyword, context, chat, retriever):
                           format_instructions=format_instructions,
                           chat=chat,
                           retriever=retriever)
+    intro = rewrite_schemas(input=intro, llm=llm2)
         
 
     content = ''
@@ -64,6 +76,7 @@ def blog(keyword, context, chat, retriever):
                                        llm=llm,
                                        chat=chat,
                                        retriever=retriever)
+        new_response = rewrite_schemas(input=new_response, llm=llm2)
         if "I apologize" in new_response or "Final response to human" in new_response or len(new_response)<350:
             count += 1
             pass
@@ -73,7 +86,7 @@ def blog(keyword, context, chat, retriever):
             content += """<h2>"""+headings_cap+"""</h2>"""
             content += """<p>"""+new_response+"""</p>"""
             count += 1
-        if count == len(headings['headings_list'])-1 or count==13:
+        if count == len(headings['headings_list'])-1 or count==10:
             print("<----start content")
             print(content)
             print("<----start content end")

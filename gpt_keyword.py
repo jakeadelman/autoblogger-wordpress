@@ -13,7 +13,7 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Chroma
 from langchain.document_loaders import TextLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
-
+from pprint import pprint
 
 from datetime import datetime, date
 from schemas.tag_schemas import tag_schemas, clean_tags
@@ -26,16 +26,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-OPENROUTER_API_BASE = os.getenv('OPENROUTER_API_BASE')
-OPENROUTER_MODEL_16K = os.getenv('OPENROUTER_MODEL_16K')
-OPENROUTER_REFERRER = os.getenv('OPENROUTER_REFERRER')
-OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
-OPENROUTER_MODEL = os.getenv('OPENROUTER_MODEL')
 WP_APPLICATION_USERNAME = os.getenv('WP_APPLICATION_USERNAME')
 WP_POSTS = os.getenv('WP_POSTS')
 WP_BASE = os.getenv('WP_BASE')
 WP_APPLICATION_PASSWORD = os.getenv('WP_APPLICATION_PASSWORD')
-
 os.environ["OPENAI_API_KEY"] = os.getenv('OPENAI_API_KEY')
 
 
@@ -67,13 +61,13 @@ if not exists(finished_file_path):
 
 
 chat = ChatOpenAI(
-    temperature=0.1,
-    model=OPENROUTER_MODEL_16K,
-    openai_api_key=OPENROUTER_API_KEY,
-    openai_api_base=OPENROUTER_API_BASE,
-    headers={"HTTP-Referer": OPENROUTER_REFERRER},
+    temperature=0,
+    model_name='gpt-3.5-turbo-16k-0613'
 )
-
+chat2 = ChatOpenAI(
+    temperature=0,
+    model_name='gpt-3.5-turbo-16k-0613'
+)
 
 with open(filepath, mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
@@ -122,7 +116,9 @@ with open(filepath, mode='r') as csv_file:
             print("<--- slug end")
 
             json_tags = tag_schemas(context=context, keyword=specific_keyword)
+            print("<--- json tags")
             print(json_tags)
+            print("<--- json tags")
 
             img_id = 0
             img_id = img_to_wp(query=json_tags['tag1'], keyword=specific_keyword)
@@ -147,7 +143,8 @@ with open(filepath, mode='r') as csv_file:
             tags_list.append(cleand_json_tags_1['tag2'])   
             tags_list.append(cleand_json_tags_1['tag3'])   
             new_tags = get_tags(tags_list, header)
-            content = blog(keyword=specific_keyword, context=context, chat=chat, retriever=retriever)
+            print("<---- starting content")
+            content = blog(keyword=specific_keyword, context=context, chat=chat, retriever=retriever, chat2=chat2)
             title = content['title']
             blog_content = content['content']
 
@@ -174,9 +171,13 @@ with open(filepath, mode='r') as csv_file:
                 }
             }
             url = WP_POSTS
-
+            pprint(post)
             response = requests.post(url , headers=header, json=post)
             response_json = response.json()
+            pprint("<------ res json")
+            pprint(response.json())
+            print(response.status_code)
+            pprint("<------ res json")
             if response.status_code == 201:
                 with open(finished_file_path, 'a') as f:
                     my_slug = WP_BASE +response_json['slug']

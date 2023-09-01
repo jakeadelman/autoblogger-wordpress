@@ -61,6 +61,7 @@ def title_schemas(keyword, chat, retriever):
 
     _input = prompt.format(question=messages)
 
+    # llm = LLMChain(llm=chat, prompt=prompt)
     llm = LLMChain(llm=chat, prompt=prompt, output_parser=output_parser)
 
     output_dict = llm.run(_input)

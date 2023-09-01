@@ -10,18 +10,13 @@ from langchain.chat_models import ChatOpenAI
 load_dotenv()
 
 SERPER_API_KEY = os.getenv('SERPER_API_KEY')
-OPENROUTER_MODEL = os.getenv('OPENROUTER_MODEL')
-OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
-OPENROUTER_API_BASE = os.getenv('OPENROUTER_API_BASE')
-OPENROUTER_REFERRER = os.getenv('OPENROUTER_REFERRER')
+os.environ["OPENAI_API_KEY"] = os.getenv('OPENAI_API_KEY')
+
 
 async def search_and_summarize_web_url(query:str, chat:str) -> str:
     chat = ChatOpenAI(
-        temperature=0.7,
-        model=OPENROUTER_MODEL,
-        openai_api_key=OPENROUTER_API_KEY,
-        openai_api_base=OPENROUTER_API_BASE,
-        headers={"HTTP-Referer": OPENROUTER_REFERRER},
+        temperature=0,
+        model_name='gpt-3.5-turbo-16k-0613'
     )
 
     """Searches the web for the query and extracts relevant texts."""

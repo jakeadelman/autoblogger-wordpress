@@ -10,26 +10,19 @@ import os
 
 load_dotenv()
 
-OPENROUTER_MODEL_16K = os.getenv('OPENROUTER_MODEL_16K')
-OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY')
-OPENROUTER_API_BASE = os.getenv('OPENROUTER_API_BASE')
-OPENROUTER_REFERRER = os.getenv('OPENROUTER_REFERRER')
-
+os.environ["OPENAI_API_KEY"] = os.getenv('OPENAI_API_KEY')
 
 
 def headings_schemas(keyword, context):
     chat = ChatOpenAI(
-        temperature=0.1,
-        model=OPENROUTER_MODEL_16K,
-        openai_api_key=OPENROUTER_API_KEY,
-        openai_api_base=OPENROUTER_API_BASE,
-        headers={"HTTP-Referer": OPENROUTER_REFERRER},
+        temperature=0,
+        model_name='gpt-3.5-turbo-16k-0613'
     )
 
     temp = """
     Make sure there is opening and closing quotation marks and curly brackets.
     Make sure there is only 1 headings_list.
-    Can you come up with 10 to 13 different headings for my article on {keyword}.
+    Can you come up with 7 to 10 different headings for my article on {keyword}.
     DO NOT give the output as a numbered list. Make sure it is in JSON format.
     Make sure they are on the topic of {keyword}
 
