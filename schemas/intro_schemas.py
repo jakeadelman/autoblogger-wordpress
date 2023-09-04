@@ -11,11 +11,11 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
     closest = qa.run(keyword)
     print("<----- closest end")
 
+    if len(closest)<350:
+        return 'none'
 
 
     temp = """
-    Keep the following in mind when writing the blog section:
-    {HUMAN_PROMPT}
 
 
     Do not write anything about Artificial Intelligence. If anything is about artificial intelligence remove it.

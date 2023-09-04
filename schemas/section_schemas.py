@@ -23,10 +23,12 @@ def section_schemas(heading, keyword, llm, chat, format_instructions, retriever)
             return "nothing"
 
 
-        temp = """
-        Keep the following in mind when writing the blog section:
-        {HUMAN_PROMPT}
+        if len(closest)<350:
+            return 'none'
 
+
+
+        temp = """
 
         Don't repeat anything you've already said.
         Do not write anything about Artificial Intelligence. If anything is about artificial intelligence remove it.

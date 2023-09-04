@@ -160,7 +160,7 @@ with open(filepath, mode='r') as csv_file:
             post = {
                 'slug' : slug,
                 'title' : title_capwords,
-                'status'   : 'publish', 
+                'status'   : 'draft', 
                 'content'  : blog_content,
                 'categories': category_id,
                 'tags': new_tags,

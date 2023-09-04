@@ -62,7 +62,6 @@ def blog(keyword, context, chat, chat2, retriever):
                           format_instructions=format_instructions,
                           chat=chat,
                           retriever=retriever)
-    intro = rewrite_schemas(input=intro, llm=llm2)
         
 
     content = ''
@@ -76,7 +75,6 @@ def blog(keyword, context, chat, chat2, retriever):
                                        llm=llm,
                                        chat=chat,
                                        retriever=retriever)
-        new_response = rewrite_schemas_intro(input=new_response, llm=llm2)
         if "I apologize" in new_response or "Final response to human" in new_response or len(new_response)<350:
             count += 1
             pass
