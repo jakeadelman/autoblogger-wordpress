@@ -64,10 +64,7 @@ chat = ChatOpenAI(
     temperature=0,
     model_name='gpt-3.5-turbo-16k-0613'
 )
-chat2 = ChatOpenAI(
-    temperature=0,
-    model_name='gpt-3.5-turbo-16k-0613'
-)
+
 
 with open(filepath, mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
@@ -144,7 +141,7 @@ with open(filepath, mode='r') as csv_file:
             tags_list.append(cleand_json_tags_1['tag3'])   
             new_tags = get_tags(tags_list, header)
             print("<---- starting content")
-            content = blog(keyword=specific_keyword, context=context, chat=chat, retriever=retriever, chat2=chat2)
+            content = blog(keyword=specific_keyword, context=context, chat=chat, retriever=retriever)
             title = content['title']
             blog_content = content['content']
 

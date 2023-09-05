@@ -6,3 +6,8 @@ images/*
 .DS_Store
 ./csvs/.DS_Store
 test.py
+test2.py
+test3.py
+test4.py
+test5.py
+test_templates.py

@@ -2,7 +2,6 @@ import json
 import re
 from langchain.chains import RetrievalQA
 from utils.functions import find_nth, add_json_characters
-from prompts.prompts import HUMAN_PROMPT
 
 def intro_schemas(keyword, llm, format_instructions, chat, retriever):
     qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever)
@@ -49,7 +48,6 @@ def intro_schemas(keyword, llm, format_instructions, chat, retriever):
         keyword=keyword,
         format_instructions=format_instructions,
         context=closest,
-        HUMAN_PROMPT=HUMAN_PROMPT
     )
 
 

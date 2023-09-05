@@ -25,6 +25,20 @@ Also make sure there is a closing quotation mark for the JSON string.
 Question: {input}
 AI:
 """
+template_test_5 = """
+
+
+
+{input}
+{chat_history}
+AI Response:
+"""
+
+template_test_6="""
+    {chat_history}
+    {format_instructions}
+    {input}
+"""
 template_test_4 = """
 Use the section passed in under 'Question'-> 'Section' and rewrite it using the instructions below.
 

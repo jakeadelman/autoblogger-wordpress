@@ -8,12 +8,12 @@ from schemas.section_schemas import section_schemas
 from schemas.rewrite_schemas import rewrite_schemas, rewrite_schemas_intro
 from langchain.chains.conversation.memory import ConversationBufferMemory
 from langchain import LLMChain, PromptTemplate
-from prompts.templates import template_test_2, template_test_3
+from prompts.templates import template_test_2, template_test_3, template_test_5
 import string
+import time
 
 
-
-def blog(keyword, context, chat, chat2, retriever):
+def blog(keyword, context, chat, retriever):
     
     blog_section = ResponseSchema(
         name="blog_section",
@@ -34,21 +34,13 @@ def blog(keyword, context, chat, chat2, retriever):
         # output_parser=output_parser
 
     )
-    prompt2 = PromptTemplate(
-        input_variables=["input"], 
-        template=template_test_3,
-        partial_variables={"format_instructions": format_instructions},
-        # output_parser=output_parser
 
-    )
     memory = ConversationBufferMemory(memory_key="chat_history", k=2)
 
     llm = LLMChain(llm=chat, 
         prompt=prompt,
         memory=memory)
     
-    llm2 = LLMChain(llm=chat2, 
-        prompt=prompt2)
 
 
 
@@ -75,8 +67,10 @@ def blog(keyword, context, chat, chat2, retriever):
                                        llm=llm,
                                        chat=chat,
                                        retriever=retriever)
+
         if "I apologize" in new_response or "Final response to human" in new_response or len(new_response)<350:
             count += 1
+            time.sleep(20)
             pass
         else:
             headings_cap = string.capwords(heading)
@@ -84,6 +78,7 @@ def blog(keyword, context, chat, chat2, retriever):
             content += """<h2>"""+headings_cap+"""</h2>"""
             content += """<p>"""+new_response+"""</p>"""
             count += 1
+            time.sleep(20)
         if count == len(headings['headings_list'])-1 or count==10:
             print("<----start content")
             print(content)

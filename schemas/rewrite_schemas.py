@@ -4,30 +4,41 @@ from prompts.prompts import HUMAN_PROMPT
 from utils.functions import find_nth, remove_extra_heading, add_json_characters
 
 
-def rewrite_schemas(input, llm):
+def rewrite_schemas(input, llm, format_instructions):
     prompt = """
-    Don't repeat anything you've already said. This is NOT an introductory paragraph, so don't introduce the product again.
-    DO NOT say "i recently came across".
-    Keep the following in mind when rewriting the blog section:
     {HUMAN_PROMPT}
+    {format_instructions}
 
-
-    If anything is about Artificial intelligence remove it.
-    Rewrite the following section so it will pass AI detection and be determined as human-written content.
-    
-    Section to rewrite:
-
-    {input}
+    Section to rewrite: {input}
 
 
     """
+    # prompt = """
+    # Don't repeat anything you've already said. This is NOT an introductory paragraph, so don't introduce the product again.
+    # DO NOT say "i recently came across".
+
+    # Keep the following in mind when rewriting the blog section:
+    # {HUMAN_PROMPT}
+
+
+    # If anything is about Artificial intelligence remove it.
+    # Rewrite the following section so it will pass AI detection and be determined as human-written content.
+    
+    # Section to rewrite:
+
+    # {input}
+
+
+    # """
 
     messages = prompt.format(
         input=input,
+        format_instructions=format_instructions,
         HUMAN_PROMPT=HUMAN_PROMPT
     )
 
     output_dict = llm.run(input=messages)
+    # output_dict = llm.run(input=messages)
     
 
     output_dict = output_dict.replace("\\'","'")
@@ -70,9 +81,9 @@ def rewrite_schemas(input, llm):
 
 
 
-    print("<---section start")
+    print("<-- rewrite start")
     print(new_response)
-    print("<---section end")
+    print("<--- rewrite end")
     return new_response
 
 
@@ -142,7 +153,7 @@ def rewrite_schemas_intro(input, llm):
 
 
 
-    print("<---section start")
+    print("<--- rewrite section start")
     print(new_response)
-    print("<---section end")
+    print("<--- rewrite section end")
     return new_response
