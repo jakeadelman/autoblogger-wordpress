@@ -11,6 +11,7 @@ from langchain import LLMChain, PromptTemplate
 from prompts.templates import template_test_2, template_test_3, template_test_5
 import string
 import time
+from utils.paraphraser import main
 
 
 def blog(keyword, context, chat, retriever):
@@ -54,6 +55,7 @@ def blog(keyword, context, chat, retriever):
                           format_instructions=format_instructions,
                           chat=chat,
                           retriever=retriever)
+    intro = main(3,5,intro)
         
 
     content = ''
@@ -67,6 +69,7 @@ def blog(keyword, context, chat, retriever):
                                        llm=llm,
                                        chat=chat,
                                        retriever=retriever)
+        new_response = main(3,5,new_response)
 
         if "I apologize" in new_response or "Final response to human" in new_response or len(new_response)<350:
             count += 1
