@@ -46,16 +46,6 @@ def main(purpose_choice, readability_choice, article_text):
                 else:
                     numwords+=1
 
-        print("<--- cut end start")
-        print(article_chunks)
-        print("<--- cut end")
-        # time.sleep(50)
-        # article_chunks = [' '.join(words[i:i+chunk_size]) for i in range(0, len(words), chunk_size)]
-        # print(len(article_chunks))
-        # print(article_chunks)
-        # if not article_chunks:
-        #     print(f"{Fore.RED}Your file is empty.")
-        #     return
 
         # Initialize the WebDriver
         user_agent = UserAgent()
@@ -74,10 +64,7 @@ def main(purpose_choice, readability_choice, article_text):
         new_text = ""
 
         while article_chunks:
-            
-            print("<----- chunk")
-            print(article_chunks)
-            print("<---- chunk end")
+
             # Generate temp email
             email = EMail()
             password = generate_password()
@@ -143,19 +130,24 @@ def main(purpose_choice, readability_choice, article_text):
                     humanize = driver.find_element(By.XPATH, '/html/body/div[1]/div/div[1]/div[2]/div[3]/div/div[2]/div[2]/button[2]').click()
 
 
-                    
-                    time.sleep(1)
-                    rehumanize = WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.CLASS_NAME, 'cmaYaCaW')))                                                            
-                    rehumanize.click()
-                    
-                    time.sleep(5)
-                    paraphrased = WebDriverWait(driver, 60).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[8]/div[2]/div[1]/div[4]/button')))
-                    paraphrased.click()
+                    try:
+                        time.sleep(1)
+                        rehumanize = WebDriverWait(driver, 120).until(EC.element_to_be_clickable((By.CLASS_NAME, 'cmaYaCaW')))                                                            
+                        rehumanize.click()
+                        
+                        time.sleep(5)
+                        paraphrased = WebDriverWait(driver, 120).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[8]/div[2]/div[1]/div[4]/button')))
+                        paraphrased.click()
 
-                    time.sleep(3)
+                        time.sleep(3)
 
-                    copied_content = pyperclip.paste()
-                    new_text += copied_content
+                        copied_content = pyperclip.paste()
+                        print("<---- paperclip start")
+                        print(copied_content)
+                        print("<---- paperclip end")
+                        new_text += copied_content
+                    except:
+                        pass
                     # with open('paraphrased.txt', 'a') as new:
                     #     new.write(f'{copied_content}\n')
 

@@ -4,9 +4,14 @@ from prompts.templates import llm_chain_prompt_template
 from langchain.output_parsers import ResponseSchema
 from langchain.output_parsers import StructuredOutputParser
 from langchain.chains import RetrievalQA
+from langchain.chat_models import ChatOpenAI
 
 
-def title_schemas(keyword, chat, retriever):
+def title_schemas(keyword, retriever):
+    chat = ChatOpenAI(
+        temperature=0,
+        model_name='gpt-3.5-turbo-16k-0613'
+    )
 
 
     qa = RetrievalQA.from_chain_type(llm=chat, chain_type="stuff", retriever=retriever)

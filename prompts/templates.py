@@ -12,6 +12,19 @@ Also make sure there is a closing quotation mark for the JSON string.
 Question: {input}
 AI:
 """
+template_test_7 = """
+Use the real article summaries under "Context" to generate the blog section. Nothing is fabricated.
+Answer the question below in 250 to 400 words. Your answer should be at least 5 paragraphs long. 
+Each paragraph should be 50 to 80 words long. Separate each paragraph with "\\n\n".
+Make sure there are no cutoff sentences. Make sure to include the closing clurly brackets in the JSON.
+Also make sure there is a closing quotation mark for the JSON string.
+
+
+{format_instructions}
+
+Question: {input}
+AI:
+"""
 template_test_3 = """
 Use the real article summaries under "Context" to generate the blog section. Nothing is fabricated.
 Answer the question below in 250 to 400 words. Your answer should be at least 5 paragraphs long. 

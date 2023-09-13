@@ -3,6 +3,9 @@ import re
 import requests
 import os
 from dotenv import load_dotenv
+import nltk
+import signal
+
 
 load_dotenv()
 
@@ -230,5 +233,131 @@ def remove_extra_heading(nth_text, heading):
 def add_json_characters(nth_text_shortened):
     test_res = '{"blog_section": "'+nth_text_shortened
     period_index = test_res.rfind(".") + 1
+    res_2 = test_res[:period_index]+'</p>"}'
+    return res_2
+
+def add_json_characters_intro(nth_text_shortened):
+    test_res = '{"blog_section": "'+nth_text_shortened
+    period_index = test_res.rfind(".") + 1
     res_2 = test_res[:period_index]+'"}'
     return res_2
+
+def paragraphize3(input):
+    sent_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+    sentences = sent_tokenizer.tokenize(input)
+    print(sentences)
+    # sentences = sent_tokenizer.tokenize(input)
+    sentences = [sent.capitalize() for sent in sentences]
+
+    end = ''
+    for senti in sentences:
+        end = end+senti+" "
+
+    return end
+
+
+def paragraphize2(input):
+    sent_tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+    sentences = sent_tokenizer.tokenize(input)
+    print(sentences)
+    # sentences = sent_tokenizer.tokenize(input)
+    sentences = [sent.capitalize() for sent in sentences]
+
+    par1 = ''
+    par2 = ''
+    par3 = ''
+    par4 =''
+    par5 =''
+    par6 =''
+    par7 = ''
+    par8 = ''
+    par9 = ''
+    par10 = ''
+    par11 = ''
+    par12 = ''
+    par13 = ''
+    par14 = ''
+    par15 = ''
+
+    for senti in sentences:
+        full_len = len(par1)+len(par2)+len(par3)+len(par4)+len(par5)+len(par6)+len(par7)+len(par8)+len(par9)+len(par10)+len(par11)+len(par12)+len(par13)+len(par14)+len(par15)
+        if full_len< 250:
+            par1 = par1+senti+" "
+        elif full_len<500:
+            par2 = par2+senti+" "
+        elif full_len<750:
+            par3 = par3+senti+" "
+        elif full_len<1000:
+            par4 = par4+senti+" "
+        elif full_len<1250:
+            par5 = par5+senti+" "
+        elif full_len<1500:
+            par6 = par6+senti+" "
+        elif full_len<1750:
+            par7 = par7+senti+" "
+        elif full_len<2000:
+            par8 = par8+senti+" "
+        elif full_len<2250:
+            par9 = par9+senti+" "
+        elif full_len<2500:
+            par10 = par10+senti+" "
+        elif full_len<2750:
+            par11 = par11+senti+" "
+        elif full_len<3000:
+            par12 = par12+senti+" "
+        elif full_len<3250:
+            par13 = par13+senti+" "
+        elif full_len<3500:
+            par14 = par14+senti+" "
+        else:
+            par15 = par15+senti+" "
+    
+    new_sentences =''
+    if par2=='':
+        new_sentences = par1
+    elif par3=='':
+        new_sentences = par1+"\n\n"+par2
+    elif par4=='':
+        new_sentences=par1+"\n\n"+par2+"\n\n"+par3
+    elif par5=='':
+        new_sentences=par1+"\n\n"+par2+"\n\n"+par3+"\n\n"+par4
+    elif par6=='':
+        new_sentences=par1+"\n\n"+par2+"\n\n"+par3+"\n\n"+par4+"\n\n"+par5
+    elif par7=='':
+        new_sentences=par1+"\n\n"+par2+"\n\n"+par3+"\n\n"+par4+"\n\n"+par5+"\n\n"+par6+"\n\n"+par7
+    elif par8=='':
+        new_sentences=par1+"\n\n"+par2+"\n\n"+par3+"\n\n"+par4+"\n\n"+par5+"\n\n"+par6+"\n\n"+par7+"\n\n"+par8
+    elif par9=='':
+        new_sentences=par1+"\n\n"+par2+"\n\n"+par3+"\n\n"+par4+"\n\n"+par5+"\n\n"+par6+"\n\n"+par7+"\n\n"+par8+"\n\n"+par9
+    elif par10 =='':
+        new_sentences=par1+"\n\n"+par2+"\n\n"+par3+"\n\n"+par4+"\n\n"+par5+"\n\n"+par6+"\n\n"+par7+"\n\n"+par8+"\n\n"+par9+"\n\n"+par10
+    elif par11=='':
+        new_sentences=par1+"\n\n"+par2+"\n\n"+par3+"\n\n"+par4+"\n\n"+par5+"\n\n"+par6+"\n\n"+par7+"\n\n"+par8+"\n\n"+par9+"\n\n"+par10+"\n\n"+par11
+    elif par12=='':
+        new_sentences=par1+"\n\n"+par2+"\n\n"+par3+"\n\n"+par4+"\n\n"+par5+"\n\n"+par6+"\n\n"+par7+"\n\n"+par8+"\n\n"+par9+"\n\n"+par10+"\n\n"+par11+"\n\n"+par12
+    elif par13=='':
+        new_sentences=par1+"\n\n"+par2+"\n\n"+par3+"\n\n"+par4+"\n\n"+par5+"\n\n"+par6+"\n\n"+par7+"\n\n"+par8+"\n\n"+par9+"\n\n"+par10+"\n\n"+par11+"\n\n"+par12+"\n\n"+par13
+    elif par14=='':
+        new_sentences=par1+"\n\n"+par2+"\n\n"+par3+"\n\n"+par4+"\n\n"+par5+"\n\n"+par6+"\n\n"+par7+"\n\n"+par8+"\n\n"+par9+"\n\n"+par10+"\n\n"+par11+"\n\n"+par12+"\n\n"+par13+"\n\n"+par14
+    else:
+        new_sentences=par1+"\n\n"+par2+"\n\n"+par3+"\n\n"+par4+"\n\n"+par5+"\n\n"+par6+"\n\n"+par7+"\n\n"+par8+"\n\n"+par9+"\n\n"+par10+"\n\n"+par11+"\n\n"+par12+"\n\n"+par13+"\n\n"+par14+"\n\n"+par15
+
+    return new_sentences
+
+
+class Timeout():
+  """Timeout class using ALARM signal"""
+  class Timeout(Exception): pass
+
+  def __init__(self, sec):
+    self.sec = sec
+
+  def __enter__(self):
+    signal.signal(signal.SIGALRM, self.raise_timeout)
+    signal.alarm(self.sec)
+
+  def __exit__(self, *args):
+    signal.alarm(0) # disable alarm
+
+  def raise_timeout(self, *args):
+    raise Timeout.Timeout()

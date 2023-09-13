@@ -20,9 +20,11 @@ def headings_schemas(keyword, context):
     )
 
     temp = """
+    Make sure each heading is on a separate topic but all of them must be under the umbrella of '{keyword}'.
+    Don't have any duplicate headings. Don't have more than one JSON object. Do not have multiple objects in a list.
     Make sure there is opening and closing quotation marks and curly brackets.
-    Make sure there is only 1 headings_list.
-    Can you come up with 7 to 10 different headings for my article on {keyword}.
+    Make sure there is only 1 headings_list. Don't number the headings.
+    Can you come up with 13 to 20 different headings for my article on {keyword}.
     DO NOT give the output as a numbered list. Make sure it is in JSON format.
     Make sure they are on the topic of {keyword}
 
@@ -32,6 +34,7 @@ def headings_schemas(keyword, context):
     {format_instructions}
 
     Final Checks:
+    Is each heading is on a separate topic? If not, change them.
     Are there more than 10 headings? If not, add more based on the context below.
     Make sure there is opening and closing quotation marks and curly brackets.
 
@@ -44,7 +47,7 @@ def headings_schemas(keyword, context):
 
     headings_list = ResponseSchema(
         name="headings_list",
-        description="this is the python list of headings"
+        description="this is the python list of 13 to 20 headings"
     )
 
     headings_schemas = [

@@ -21,6 +21,8 @@ from schemas.slug_schemas import slug_schemas
 from utils.serper_web_utils import search_and_summarize_web_url
 import asyncio
 import os
+from utils.get_lsi_keywords import get_lsi_keywords
+
 from random import *
 from dotenv import load_dotenv
 
@@ -82,6 +84,11 @@ with open(filepath, mode='r') as csv_file:
         
         if if_exists == False:
 
+            keyword_table = get_lsi_keywords(query=specific_keyword)
+            print("<---- lsi")
+            print(keyword_table)
+            print("<---- lsi")
+
             context = asyncio.run(search_and_summarize_web_url(specific_keyword,chat))
 
             rando = randint(1,100000)
@@ -141,7 +148,7 @@ with open(filepath, mode='r') as csv_file:
             tags_list.append(cleand_json_tags_1['tag3'])   
             new_tags = get_tags(tags_list, header)
             print("<---- starting content")
-            content = blog(keyword=specific_keyword, context=context, chat=chat, retriever=retriever)
+            content = blog(keyword=specific_keyword, context=context, retriever=retriever, keyword_table=keyword_table)
             title = content['title']
             blog_content = content['content']
 
@@ -163,9 +170,9 @@ with open(filepath, mode='r') as csv_file:
                 'tags': new_tags,
                 'date'  : today_date,
                 'featured_media':img_id,
-                'meta_box':{
-                    'bk_post_layout_standard':'single-2'
-                }
+                # 'meta_box':{
+                #     'bk_post_layout_standard':'single-2'
+                # }
             }
             url = WP_POSTS
             pprint(post)
