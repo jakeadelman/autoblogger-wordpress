@@ -23,6 +23,8 @@ Copy the .env.example file into a file called .env in the root of the directory.
 8. **OPENAI_API_KEY:** Make an api key on openai.com and replace your api key in the .env file.
 9. **WP_BASE:** Change to your base url.
 10. **WP_POSTS:** Change to your posts url.
+11. **GPT_USERNAME:** Add gpt username for selenium login
+12. **GPT_PASSWORD:** Add gpt password for selenium login
 
 ### Step 3: Create CSV with keywords list
 
