@@ -2,7 +2,6 @@
 __pycache__/
 utils/__pycache__/
 schemas/__pycache__/
-images/*
 .DS_Store
 ./csvs/.DS_Store
 temp.py
