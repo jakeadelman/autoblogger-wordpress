@@ -34,6 +34,7 @@ def headings_schemas(keyword, context):
     {format_instructions}
 
     Final Checks:
+    Are any topics of similar search intent? If so, remove them.
     Is each heading is on a separate topic? If not, change them.
     Are there more than 10 headings? If not, add more based on the context below.
     Make sure there is opening and closing quotation marks and curly brackets.

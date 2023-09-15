@@ -1,8 +1,9 @@
 humanize_prompt="""Don't start until i give you the blog section in the second prompt.\
 use the following steps to rewrite the blog section I will give you in the next prompt. \
 Put the rewritten blog section in a code block. Make sure everything is fit into the code block. \
-Don't repeat what you've already said in previous answers. Do you understand? Answer yes or no. \
-Add in h3 tags where applicable and only every 150-250 words. \
+Don't repeat what you've already said in previous answers. Remove anything that is duplicate. \
+Do you understand? Answer yes or no. \
+Add in h3 tags where applicable and only every 200-250 words. \
 IMPORTANT: Separate any paragraphs longer than 50 words into separate paragraphs with 'p' tags. \
 Don't forget the closing h3 or p tags. \
 IMPORTANT: Don't add anything introducing the drone such as "I recently stumbled upon" or "hey there" or "ever heard of". We already know what the product is. \

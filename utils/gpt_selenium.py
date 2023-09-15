@@ -18,16 +18,20 @@ from fake_useragent import UserAgent
     
 def openai_login(driver, MAIL,PASSWORD):
     print("Current session is {}".format(driver.session_id))
-    driver.get('https://chat.openai.com/auth/login')
-    time.sleep(5)
+    driver.execute_script('''window.open("https://chat.openai.com/auth/login","_blank");''') # open page in new tab
+    time.sleep(5) # wait until page has loaded
+    driver.switch_to.window(window_name=driver.window_handles[0])   # switch to first tab
+    driver.close() # close first tab
+    driver.switch_to.window(window_name=driver.window_handles[0] )  # switch back to new tab
+
+    time.sleep(10)
     inputElements = driver.find_elements(By.TAG_NAME, "button")
     inputElements[0].click()
     time.sleep(3)
     mail = driver.find_elements(By.TAG_NAME,"input")[1]
     mail.send_keys(MAIL)
     time.sleep(4)
-    # btn=driver.find_elements(By.TAG_NAME,"button")[1]
-    # btn.click()
+
     btn = driver.find_element(By.XPATH, "/html/body/div[1]/main/section/div/div/div/div[1]/div/form/div[2]/button")
     btn.click()
 
@@ -78,7 +82,7 @@ def get_response(prompt, sec_num, driver):
     # time.sleep(120)
     send = driver.find_element(By.XPATH, "//*[@id='__next']/div[1]/div[2]/div/main/div/div[2]/form/div/div[2]/div/button")
     send.click()
-    time.sleep(95) 
+    time.sleep(115) 
 
     el = driver.find_elements(By.TAG_NAME, "code")
     print("clicking")

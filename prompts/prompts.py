@@ -1,7 +1,7 @@
 SUMMARIZE_PROMPT = """
 Do not write anything about Artificial Intelligence.
 Write a detailed summary that captures all relevant information of the following text.
-The summary should be at least 700 words.
+The summary should be at least 750 words.
 Make sure to write as a blog writer NOT as the manufacturer. Don't say 'we' or 'us'.
 If there is anything about asking to prove you are human, don't write about it in the summary response.
 Make it in the style of a blog writer who is talking about the subject rather than from the point of view of a company that owns the product.

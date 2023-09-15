@@ -86,6 +86,7 @@ def blog(keyword, context, retriever, keyword_table):
 
     content = ''
     count = 0
+    count2 = 0
     # content += """<p>"""+intro+"""</p>"""
 
     for heading in headings['headings_list']:
@@ -115,9 +116,10 @@ def blog(keyword, context, retriever, keyword_table):
         else:
             full_sections_list.append(section_dict)
             count += 1
+            count2 += 1
             time.sleep(10)
 
-        if count == len(headings['headings_list'])-1 or count==20:
+        if count == len(headings['headings_list'])-1 or count2==12:
 
             op = uc.ChromeOptions()
             op.add_argument(f"user-agent={UserAgent.random}")

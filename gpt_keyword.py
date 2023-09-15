@@ -170,9 +170,9 @@ with open(filepath, mode='r') as csv_file:
                 'tags': new_tags,
                 'date'  : today_date,
                 'featured_media':img_id,
-                # 'meta_box':{
-                #     'bk_post_layout_standard':'single-2'
-                # }
+                'meta_box':{
+                    'bk_post_layout_standard':'single-2'
+                }
             }
             url = WP_POSTS
             pprint(post)
