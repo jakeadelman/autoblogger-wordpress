@@ -123,7 +123,7 @@ def blog(keyword, context, retriever, keyword_table):
 
             op = uc.ChromeOptions()
             op.add_argument(f"user-agent={UserAgent.random}")
-            op.add_argument("user-data-dir=./")
+            op.add_argument("user-data-dir=./userdata")
             op.add_experimental_option("detach", True)
             op.add_experimental_option("excludeSwitches", ["enable-logging"])
             op.add_argument('ignore-certificate-errors')

@@ -6,7 +6,6 @@ images/*
 .DS_Store
 ./csvs/.DS_Store
 temp.py
-temp2.py
-temp3.py
 test_templates.py
 utils/accounts.txt
+userdata/*

@@ -14,7 +14,7 @@ from langchain.vectorstores import Chroma
 from langchain.document_loaders import TextLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
 from pprint import pprint
-
+import json
 from datetime import datetime, date
 from schemas.tag_schemas import tag_schemas, clean_tags
 from schemas.slug_schemas import slug_schemas
@@ -120,6 +120,11 @@ with open(filepath, mode='r') as csv_file:
             print("<--- slug end")
 
             json_tags = tag_schemas(context=context, keyword=specific_keyword)
+            try:
+                json_tags = json.loads(json_tags)
+            except:
+                pass
+            
             print("<--- json tags")
             print(json_tags)
             print("<--- json tags")
@@ -138,6 +143,17 @@ with open(filepath, mode='r') as csv_file:
                     pass
             else:
                 pass
+
+            print("<----- img id")
+            print("<----- img id")
+            print("<----- img id")
+            print("<----- img id")
+            print(img_id)
+            print("<---- img id")
+            print("<---- img id")
+            print("<---- img id")
+            print("<---- img id")
+
 
 
             cleand_json_tags_1 = clean_tags(json_tags)

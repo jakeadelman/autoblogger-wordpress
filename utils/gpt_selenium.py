@@ -82,7 +82,7 @@ def get_response(prompt, sec_num, driver):
     # time.sleep(120)
     send = driver.find_element(By.XPATH, "//*[@id='__next']/div[1]/div[2]/div/main/div/div[2]/form/div/div[2]/div/button")
     send.click()
-    time.sleep(115) 
+    time.sleep(125) 
 
     el = driver.find_elements(By.TAG_NAME, "code")
     print("clicking")
