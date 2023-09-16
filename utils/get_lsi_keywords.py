@@ -13,6 +13,8 @@ from dotenv import load_dotenv
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.wait import WebDriverWait
+from playwright.sync_api import sync_playwright
+
 
 
 executable_path = "/home/jacobadelman/python3/chromedriver"
@@ -48,10 +50,23 @@ def get_lsi_keywords(query):
     time.sleep(7)
     driver.switch_to.new_window('tab')
     my_link = ''
+
     for p in range(len(decoded['organic'])):
+        print("here again")
         if 'amazon' not in decoded['organic'][p]['link'] and 'walmart' not in decoded['organic'][p]['link']:
-            my_link = decoded['organic'][p]['link']
-            break
+            # my_link = decoded['organic'][p]['link']
+            url = decoded['organic'][p]['link']
+            driver.get(url)
+            time.sleep(24)
+
+            body = driver.find_element(By.TAG_NAME,'body')
+            innerHtml = body.get_attribute('innerHTML')
+            if len(innerHtml)>5000:
+                my_link = url
+                break
+            else:
+                pass
+
 
     driver.get(my_link)
     time.sleep(10)
@@ -66,7 +81,7 @@ def get_lsi_keywords(query):
     settings = driver.find_element(By.CLASS_NAME, 'CreatorHeader__icon_type_settings')
     settings.click()
 
-    time.sleep(4)
+    time.sleep(28)
     settings = driver.find_element(By.CLASS_NAME, 'Dropdown__iconAndValue')
     settings.click()
 
